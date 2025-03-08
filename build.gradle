@@ -1,0 +1,71 @@
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
+}
+
+group = 'com.woodycreations.marketplace'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+
+    maven {
+        name = 'papermc-repo'
+        url = 'https://repo.papermc.io/repository/maven-public/'
+    }
+
+    maven {
+        name = "jitpack"
+        url = "https://jitpack.io"
+    }
+}
+
+dependencies {
+    compileOnly("io.papermc.paper:paper-api:1.20.2-R0.1-SNAPSHOT")
+
+    implementation("dev.morphia.morphia:morphia-core:2.4.4")
+    implementation("org.jetbrains:annotations:latest.integration")
+    implementation("com.github.JaimeTruman:Bukkit-better-menus:1.4.0")
+
+    compileOnly("org.projectlombok:lombok:1.18.30")
+    annotationProcessor("org.projectlombok:lombok:1.18.30")
+}
+
+
+def targetJavaVersion = 19
+java {
+    def javaVersion = JavaVersion.toVersion(targetJavaVersion)
+    sourceCompatibility = javaVersion
+    targetCompatibility = javaVersion
+    if (JavaVersion.current() < javaVersion) {
+        toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
+    }
+}
+
+compileJava.options.encoding = 'UTF-8'
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+tasks.withType(JavaCompile).configureEach {
+    if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
+        options.release = targetJavaVersion
+    }
+}
+
+processResources {
+    def props = [version: version]
+    inputs.properties props
+    filteringCharset 'UTF-8'
+    filesMatching('plugin.yml') {
+        expand props
+    }
+}
+
+shadowJar {
+    archiveClassifier.set('') // Makes Shadow JAR the main output
+    relocate 'dev.morphia', 'com.woodycreations.marketplace.shade.morphia' // Avoid class conflicts
+    relocate 'org.mongodb', 'com.woodycreations.marketplace.shade.mongodb' // Avoid class conflicts
+}
+

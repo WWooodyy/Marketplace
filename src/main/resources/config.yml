@@ -1,0 +1,64 @@
+database:
+  host: "192.168.0.1"
+  port: 25004
+  collection: "production_global"
+  authenticationDatabase: "admin"
+  username: "admin"
+  password: "pa55w0rd"
+
+language:
+  item_listed: "<green>Your item has been listed."
+  item_already_sold: "<red>This item has already been sold."
+  item_sold: "<green>Your item has been sold."
+  item_not_found: "<red>Item not found."
+  user_not_enough_money: "<red>You don't have enough money."
+  user_not_enough_space: "<red>You don't have enough space in your inventory."
+
+menu:
+  confirmation:
+    title: "<gold>Confirmation"
+    design:
+      - "XXXXXXXXX"
+      - "XNNNXYYYX"
+      - "XXXXXXXXX"
+    items:
+      'border':
+        key: "X"
+        state:
+          default:
+            material: "GRAY_STAINED_GLASS_PANE"
+            name: " "
+      'no':
+        key: "N"
+        state:
+          default:
+            material: "RED_STAINED_GLASS_PANE"
+            name: "<red>No"
+      'yes':
+        key: "Y"
+        state:
+          default:
+            material: "GREEN_STAINED_GLASS_PANE"
+            name: "<green>Yes"
+  blackmarket:
+    title: "<black>Black Market"
+    design:
+      - "XXXXXXXXX"
+      - "X       X"
+      - "X       X"
+      - "X       X"
+      - "XXXXXXXXX"
+    items:
+      'border':
+        key: "X"
+        state:
+          default:
+            material: "BLACK_STAINED_GLASS_PANE"
+            name: " "
+      'item':
+        state:
+          default:
+            material: "STONE"
+            lore:
+              - "<gray>Price: <yellow>{price}"
+              - "<gray>Seller: <yellow>{seller}"

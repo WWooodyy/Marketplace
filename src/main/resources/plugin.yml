@@ -1,0 +1,25 @@
+name: Marketplace
+version: 1.0.0
+main: com.woodycreations.marketplace.spigot.Marketplace
+author: Woody
+commands:
+  marketplace:
+    description: Open the marketplace menu.
+    usage: /marketplace
+    permission: marketplace.use
+    aliases:
+      - mp
+  blackmarket:
+    description: Open the black market menu.
+    usage: /blackmarket
+    permission: marketplace.blackmarket.use
+    aliases:
+      - bm
+  sell:
+    description: Lists the item in players hand in the marketplace for sale.
+    usage: /sell <price>
+    permission: marketplace.sell
+  transactions:
+    description: View the transactions you have made.
+    usage: /transactions
+    permission: marketplace.transactions
